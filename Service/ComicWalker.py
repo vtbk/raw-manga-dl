@@ -35,5 +35,5 @@ class ComicWalker(Service):
     def get_base_url(self):
         return self.chapter_base_url
 
-    def getAvailableChapters(self, mangaInfoUrl):
+    def get_available_chapters(self, overview_url):
         raise NotImplementedError

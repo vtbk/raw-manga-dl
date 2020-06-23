@@ -17,15 +17,15 @@ class PtImgSolver():
 
     def _apply_move(self, original_image, new_image, move):
             movement = re.split(':|\+|>|,', move)
-            sourceX = movement[1]
-            sourceY = movement[2]
-            boxWidth = movement[3]
-            boxHeight = movement[4]
-            destinationX = movement[5]
-            destinationY = movement[6]
+            source_x = movement[1]
+            source_y = movement[2]
+            box_width = movement[3]
+            box_height = movement[4]
+            destination_x = movement[5]
+            destination_y = movement[6]
 
-            sourceBox = (int(sourceX), int(sourceY), int(sourceX) + int(boxWidth), int(sourceY) + int(boxHeight)) 
-            destination = (int(destinationX), int(destinationY))
+            sourceBox = (int(source_x), int(source_y), int(source_x) + int(box_width), int(source_y) + int(box_height)) 
+            destination = (int(destination_x), int(destination_y))
             tile = original_image.crop(sourceBox)
             new_image.paste(tile, destination)
             return new_image

@@ -34,5 +34,5 @@ class Service(ABC):
         pass
 
     @abstractmethod
-    def getAvailableChapters(self, mangaInfoUrl):
+    def get_available_chapters(self, overview_url):
         pass
