@@ -9,8 +9,7 @@ Pages contain elements with html elements implementing a custom tag referencing 
 These pt-img.json files contain the location of the actual scrambled image and the unscrambling steps
 '''
 class PtImgService(Service, ABC):
-    #Maybe do a _getMangaName and _getChapterNumber in the download part
-    #Then do storage.store(unscrambled_images, manga_name + ' - ' chapter_number)
+
     def download(self, chapter_url, storage):
         r = super().request(chapter_url)
         soup = BeautifulSoup(r.content, "html.parser")
@@ -22,7 +21,7 @@ class PtImgService(Service, ABC):
         storage.store(unscrambled_images, identifier)
 
     def _get_page_specs(self, soup, chapter_url):
-        page_spec_locations = self._get_page_spec_locations_from_page(soup)[0:1]
+        page_spec_locations = self._get_page_spec_locations_from_page(soup)
         page_specs = []
         for page_spec_location in page_spec_locations:
             page_spec = json.loads(super().request(chapter_url + '/' + page_spec_location).text)

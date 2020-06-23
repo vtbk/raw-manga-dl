@@ -6,6 +6,7 @@ import random
 import io
 
 class Service(ABC):
+
     def __init__(self, decoder = None):
         self.decoder = decoder
 
@@ -18,11 +19,11 @@ class Service(ABC):
         return requests.get(url)
 
     def request_image(self, url):
-        sleeptime = random.randint(200, 1000) #TO-DO: implement proper rate limiting..
+        sleeptime = random.randint(200, 800) #TO-DO: implement proper rate limiting..
         time.sleep(sleeptime / 1000)
-        imageByteRepresentation = requests.get(url).content
-        byteStream = io.BytesIO(imageByteRepresentation)
-        return Image.open(byteStream)
+        image_byte_representation = requests.get(url).content
+        byte_stream = io.BytesIO(image_byte_representation)
+        return Image.open(byte_stream)
 
     @abstractmethod
     def download(self, chapter_url, storage):
