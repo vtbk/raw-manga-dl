@@ -1,19 +1,23 @@
 from PIL import Image
 import os
 class FolderStorage():
-    path = None
+    base_path = None
+
     def __init__(self, path):
         if path[-1] != '/':
             path += '/'
-        self.path = path
-        self._createPath(path)
+        self.base_path = path
     
-    def store(self, images):
+    def store(self, images, identifier: str):
+        identifier = identifier.replace(' ', '_')
+        path = self.base_path + identifier + '/'
+        self._createPath(path)
         for i, image in enumerate(images):
             filename = str(i) + '.jpg'
             filename = filename.rjust(7, '0') 
-            image.save(self.path + filename)
-    
+            image.save(path + filename)
+        return path
+        
     def _createPath(self, path):
         if not os.path.exists(path):
             os.makedirs(path)

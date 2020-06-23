@@ -12,3 +12,6 @@ class StoriaTakeShobo(PtImgService):
 
     def getAvailableChapters(self, mangaInfoUrl):
         raise NotImplementedError
+    
+    def _get_chapter_title_from_page(self, soup):
+        return soup.find("meta", attrs={"property":"og:title"}).get("content")

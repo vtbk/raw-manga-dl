@@ -3,9 +3,12 @@ import os
 import shutil
 class ZipStorage(FolderStorage):
 
-    #TO:DO: this doesn't make a lot of sense from an user perspective; make it accept a path 
-    #refering to a zip file, not a folder (i.e. ZipStorage(/tmp/foo.zip) instead of /tmp/foo)
-    def store(self, images):
-        super().store(images)
-        shutil.make_archive(self.path, 'zip', self.path)
-        shutil.rmtree(self.path)
+    '''
+    First stores the image files in a folder based on base_path + identifier, then creates a base_path + identifier.zip
+    and removes the temporary folder
+    '''
+    def store(self, images, identifier):
+        path = super().store(images, identifier)
+        shutil.make_archive(path, 'zip', self.base_path)
+        shutil.rmtree(path)
+        return path + '.zip'

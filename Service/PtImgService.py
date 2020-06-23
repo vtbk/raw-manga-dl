@@ -9,18 +9,20 @@ Pages contain elements with html elements implementing a custom tag referencing 
 These pt-img.json files contain the location of the actual scrambled image and the unscrambling steps
 '''
 class PtImgService(Service, ABC):
-    
+    #Maybe do a _getMangaName and _getChapterNumber in the download part
+    #Then do storage.store(unscrambled_images, manga_name + ' - ' chapter_number)
     def download(self, chapter_url, storage):
-        page_specs = self._get_page_specs(chapter_url)[0:2]
+        r = super().request(chapter_url)
+        soup = BeautifulSoup(r.content, "html.parser")
+        identifier = self._get_chapter_title_from_page(soup)
+        page_specs = self._get_page_specs(soup, chapter_url)
         scrambled_images = self._get_page_images(page_specs, chapter_url)
         instructions = self._get_instructions(page_specs)
         unscrambled_images = self.decoder.solve(scrambled_images, instructions)
-        storage.store(unscrambled_images)
+        storage.store(unscrambled_images, identifier)
 
-    def _get_page_specs(self, chapter_url):
-        html = super().request(chapter_url).text
-        soup = BeautifulSoup(html, "html.parser")
-        page_spec_locations = self._get_page_spec_locations_from_page(soup)
+    def _get_page_specs(self, soup, chapter_url):
+        page_spec_locations = self._get_page_spec_locations_from_page(soup)[0:1]
         page_specs = []
         for page_spec_location in page_spec_locations:
             page_spec = json.loads(super().request(chapter_url + '/' + page_spec_location).text)
@@ -43,7 +45,10 @@ class PtImgService(Service, ABC):
     @abstractmethod
     def _get_page_spec_locations_from_page(self, soup):
         pass
-    
+
+    @abstractmethod
+    def _get_chapter_title_from_page(self, soup):
+        pass
 
 
 
