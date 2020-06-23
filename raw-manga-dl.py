@@ -1,6 +1,8 @@
 from Service.StoriaTakeShobo import StoriaTakeShobo
 from Service.ComicTrail import ComicTrail
+from Service.ComicWalker import ComicWalker
 from Service.Solver.PtImgSolver import PtImgSolver
+from Service.Solver.XorSolver import XorSolver
 from Storage.FolderStorage import FolderStorage
 from Storage.ZipStorage import ZipStorage
 import argparse
@@ -13,15 +15,18 @@ if __name__ == "__main__":
     parser.add_argument('-o', default="folder")
     parser.add_argument('path')
     args = parser.parse_args()
-    solver = PtImgSolver()
+
     services = [
-        ComicTrail(solver),
-        StoriaTakeShobo(solver)
+        ComicTrail(PtImgSolver()),
+        StoriaTakeShobo(PtImgSolver()),
+        ComicWalker(XorSolver())
     ]
+
     storage_options = {
         "folder":   lambda path: FolderStorage(path),
         "zip":      lambda path: ZipStorage(path)
     }
+
     if args.download:
         storage = storage_options.get(args.o)(args.path)
         for service in services:
