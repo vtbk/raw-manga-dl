@@ -9,6 +9,8 @@ class FolderStorage():
         self.base_path = path
     
     def store(self, images, identifier: str):
+        if identifier is None:
+            raise TypeError
         identifier = identifier.replace(' ', '_')
         path = self.base_path + identifier + '/'
         self._createPath(path)
