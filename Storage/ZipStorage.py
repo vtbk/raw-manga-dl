@@ -9,6 +9,6 @@ class ZipStorage(FolderStorage):
     '''
     def store(self, images, identifier):
         path = super().store(images, identifier)
-        shutil.make_archive(path, 'zip', self.base_path)
+        shutil.make_archive(path, 'zip', path)
         shutil.rmtree(path)
         return path + '.zip'
