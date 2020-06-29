@@ -1,5 +1,5 @@
 from PIL import Image
-import math
+
 class SlideSolver():
     '''
     Solves scrambled image split into a 4x4 grid where the (x, y) coordinates of each tile has been swapped to (y, x)

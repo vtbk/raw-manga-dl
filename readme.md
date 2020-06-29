@@ -9,4 +9,5 @@ Simple tool for downloading manga from websites of various publishers. Meant to 
 - Add more services (https://comic-walker.com, https://web-ace.jp, and so on.)
 - Add proper rate limiting.
 - Refactor after implementing more DRM solvers, abstract common traits.
-
+- Fix file names, make them more uniform
+- Fix usage of decoders - too closely coupled to service implementations, so there's no real need to inject them (especially in a language such as Python..)
