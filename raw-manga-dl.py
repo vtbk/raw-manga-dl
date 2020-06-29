@@ -1,10 +1,15 @@
 from Service.StoriaTakeShobo import StoriaTakeShobo
 from Service.ComicTrail import ComicTrail
 from Service.ComicWalker import ComicWalker
+from Service.ComicDays import ComicDays
+
 from Service.Solver.PtImgSolver import PtImgSolver
 from Service.Solver.XorSolver import XorSolver
+from Service.Solver.SlideSolver import SlideSolver
+
 from Storage.FolderStorage import FolderStorage
 from Storage.ZipStorage import ZipStorage
+
 import argparse
 import os
 
@@ -19,7 +24,8 @@ if __name__ == "__main__":
     services = [
         ComicTrail(PtImgSolver()),
         StoriaTakeShobo(PtImgSolver()),
-        ComicWalker(XorSolver())
+        ComicWalker(XorSolver()),
+        ComicDays(SlideSolver())
     ]
 
     storage_options = {
@@ -34,3 +40,4 @@ if __name__ == "__main__":
                 print("Found matching service for requested chapter url")
                 service.download(args.download, storage)
                 print('Downloaded chapter to ' + os.path.abspath(args.path))
+            
