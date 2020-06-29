@@ -11,8 +11,7 @@ These pt-img.json files contain the location of the actual scrambled image and t
 class PtImgService(Service, ABC):
 
     def download(self, chapter_url, storage):
-        r = super().request(chapter_url)
-        soup = BeautifulSoup(r.content, "html.parser")
+        soup = self._get_soup_from_url(chapter_url)
         identifier = self._get_chapter_title_from_page(soup)
         page_specs = self._get_page_specs(soup, chapter_url)
         scrambled_images = self._get_page_images(page_specs, chapter_url)

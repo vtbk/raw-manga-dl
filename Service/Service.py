@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 from PIL import Image
+from bs4 import BeautifulSoup
 import requests
 import time
 import random
@@ -14,7 +15,7 @@ class Service(ABC):
         return url.startswith(self.get_base_url())
 
     def request(self, url: str):
-        sleeptime = random.randint(200, 2000) #TO-DO: implement proper rate limiting..
+        sleeptime = random.randint(300, 2000) #TO-DO: implement proper rate limiting..
         time.sleep(sleeptime / 1000)
         return requests.get(url)
 
@@ -25,6 +26,9 @@ class Service(ABC):
         byte_stream = io.BytesIO(image_byte_representation)
         return Image.open(byte_stream)
 
+    def _get_soup_from_url(self, url: str):
+        return BeautifulSoup(self.request(url).content, "html.parser")
+        
     @abstractmethod
     def download(self, chapter_url, storage):
         pass

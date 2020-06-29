@@ -3,11 +3,10 @@ from bs4 import BeautifulSoup
 import json
 
 class ComicDays(Service):
-    base_url = 'https://comic-days.com/episode/' #does not support paywall/auth locked /volume/{id} links
+    _base_url = 'https://comic-days.com/episode/' #does not support paywall/auth locked /volume/{id} links
 
     def download(self, chapter_url, storage): 
-        r = super().request(chapter_url)
-        soup = BeautifulSoup(r.content, "html.parser")
+        soup = self._get_soup_from_url(chapter_url)
         page_specs = self._get_page_specs(soup)
         scrambled_images = self._get_page_images(page_specs)
         images = self.decoder.solve(scrambled_images, page_specs)
@@ -31,7 +30,7 @@ class ComicDays(Service):
         return '{}-{}'.format(manga_name, chapter_title)
  
     def get_base_url(self):
-        return self.base_url
+        return self._base_url
 
     def get_available_chapters(self, overview_url):
         raise NotImplementedError
