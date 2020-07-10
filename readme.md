@@ -48,12 +48,14 @@ pip install beautifulsoup4
 Functionality is incredibly limited right now. 
 
 **Example usage**:
-> python raw-manga-dl.py --download <URL> -o <type> <path>
+> python raw-manga-dl.py --download \<URL\> -o \<type\> \<path\>
+
 
 **Explanation**:
->--download <URL> refers to the _chapter_ (so not the manga overview) URL of the chapter to download
+>--download \<URL\> refers to the _chapter_ URL of the chapter to download
 >
->\-o <type> specifies the output format. Either "zip" or "folder", defaults to the latter.
+>\-o \<type\> specifies the output format. Either "zip" or "folder", defaults to the latter.
 >
-><path> storage location; chapter is stored inside of the specified directory (i.e. <path>/<chapter>.zip or <path>/<chapter>) 
+>\<path\> specifies the storage location; chapter is stored inside of the specified directory => \<path\>/\<chapter\>(.zip) 
+
 
