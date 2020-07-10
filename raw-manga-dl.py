@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 from Service.StoriaTakeShobo import StoriaTakeShobo
 from Service.ComicTrail import ComicTrail
 from Service.ComicWalker import ComicWalker
